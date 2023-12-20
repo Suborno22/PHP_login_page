@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    padding: 12px;
+    width: auto;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #270e31;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    text-align: center;
+    border: 0.3px solid rgb(255, 255, 255);
+    max-width: 300px;
+    margin: 130px auto;
+    padding: 20px;
+    background-color: #1c0724;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+form h1{
+    color: white;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+}
+form span{
+    color:#fff;
+    font-size: 14px;
+    text-align: left !important;
+    position: relative;
+    left:-95px;
+}
+
+input {
+    color: white;
+    width: 100%;
+    padding: 10px;
+    margin: 9px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #34193f;
+    border: 2px solid transparent;
+}
+
+input:focus{
+    border:0.3px solid white;
+}
+
+#submit {
+    border: 3px solid transparent;
+    background-color: #776194d3;
+    color: #fff;
+    cursor: pointer;
+    max-width: fit-content;
+    border-radius: 10px;
+    font-size: 15px;
+    display: inline-block; /* Add this line to make it an inline block */
+
+}
+
+#submit:hover {
+    background-color: #dfc4e9;
+    transition: 0.3s;
+    color: black;
+}
+

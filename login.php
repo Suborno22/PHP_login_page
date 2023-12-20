@@ -1,19 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="14">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="form.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <h1>Login</h1>
+        
+        <span>Username</span><input type="text" id="username" name="username" placeholder="Username">
+        <br>
+        <span>Password</span><input type="password" name="password" id="password" placeholder="Password">
+        <br>
+        <input type="submit" name="submit" id="submit" value="Log in">
+    </form>
+    <span>Dont have an account? Click to</span><button onclick="GoToPage()">register</button>
+    <script>
+            function GoToPage(){
+            var a = 'index.php';
+            window.location.href = a;
+    }
+    </script>
+</body>
+</html>
+
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-    
-        $u = "ucyug1o0s8d2gupy";
-        $pwd = "Xd0MHrMMM8C2YqbvhNP2";
-        $host = "bx4tzgrjfpptbqjg7uyr-mysql.services.clever-cloud.com";
-        $port = 3306;
-        $database = "bx4tzgrjfpptbqjg7uyr";
-        $conn = mysqli_connect($host, $u, $pwd, $database);
-        if ($conn == false) {
-            echo "Connection error: " . $conn->error;
-        }
+
+        require __DIR__."/conn.php";
     
         // Prepare a query to retrieve user information based on the provided username
         $query = "SELECT * FROM `User` WHERE username = ?";
@@ -26,12 +48,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
             $user = mysqli_fetch_assoc($result);
     
             if (password_verify($password, $user['password'])) {
-                echo"Successfully logged in";
-            } else {
-                echo"Invalid username or password";
+                echo '<script>';
+                echo '$(document).ready(function() {';
+                echo '  alert("Successfully Logged in");';
+                echo '  setTimeout(function() {';
+                echo '    window.location.href = "index.php";';
+                echo '  }, 1000);';
+                echo '});';
+                echo '</script>';
+            }else {
+                echo '<script>';
+                echo '$(document).ready(function() {';
+                echo '  setTimeout(function() {';
+                echo '    alert("Wrong password");';
+                echo '  }, 1000);';
+                echo '});';
+                echo '</script>';
             }
         } else {
-            echo"Invalid username or password";
+            header("Location: Connection_Error.html");
         }
     
         mysqli_close($conn);
