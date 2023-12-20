@@ -7,32 +7,16 @@ WORKDIR /var/www/html
 # Copy the current directory contents into the container at /var/www/html
 COPY . /var/www/html
 
-# Set noninteractive mode for apt
-ARG DEBIAN_FRONTEND=noninteractive
+# Install any needed packages specified in requirements.txt
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    && docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd
 
-# Install apt-utils to suppress debconf warning and unzip
-RUN apt-get update && apt-get install -y apt-utils unzip
-
-# Install any dependencies your PHP project needs (e.g., PHP extensions)
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-
-# Install Composer
-RUN apt-get update && \
-    apt-get install -y unzip && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Apache configuration
-RUN a2enmod rewrite
-
-# Add a ServerName directive to suppress Apache warnings
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-# Enabling directory listing and specifying the default index file
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
-
-# Expose port 80 for the web server to listen on
+# Make port 80 available to the world outside this container
 EXPOSE 80
 
-# The command to run your PHP application
+
+# Run app.py when the container launches
 CMD ["apache2-foreground"]
