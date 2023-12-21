@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 0;
+        }
+
+        body {
+            background-color: #270e31;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #fcfeff;
+            margin: 10px auto;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .countdown {
+            text-align: center;
+            font-size: 1.5em;
+        }
+    </style>
+    <title>Success</title>
+</head>
+<body>
+    <h1>Success</h1>
+    <p>The page will redirect to login in: </p>
+    <div class="countdown" id="countdown">5</div>
+
+    <script>
+        $(document).ready(function(){
+            var seconds = 5;
+
+            function updateCountdown() {
+                $('#countdown').text(seconds);
+            }
+
+            var countdownInterval = setInterval(function(){
+                updateCountdown();
+                seconds--;
+
+                if (seconds < 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = 'index.php';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

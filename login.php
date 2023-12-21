@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
     
             if (password_verify($password, $user['password'])) {
                 mysqli_stmt_close($stmt);
-                header("Location: index.php");
+                header("Location: success.html");
                 exit;
             }else {
                 echo '<script>';
