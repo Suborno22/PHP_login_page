@@ -1,33 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="form.css">
-    <title>Register Page</title>
-</head>
-<body>
-    <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post">
-        <h1>Register</h1>
-
-        <span>Name</span><input type="text" id="name" name="name" placeholder="Name">
-        <br>
-        <span>Username</span><input type="text" id="username" name="username" placeholder="Username">
-        <br>
-        <span>Password</span><input type="password" name="password" id="password" placeholder="Password">
-        <br>
-        <input type="submit" name="submit" id="submit" value="Register">
-    </form>
-    <span>Already have an account? return</span><button onclick="GoToLoginPage()">Log in</button>
-
-    <script>
-            function GoToLoginPage(){
-            var a = 'login.php';
-            window.location.href = a;
-    }
-    </script>
-    <?php
+<?php
 
     require __DIR__."/conn.php";
     
@@ -59,7 +30,9 @@
                 mysqli_stmt_bind_param($stmt, 'sss', $name, $username, $hpassword);
             
                 if (mysqli_stmt_execute($stmt)) {
+                    mysqli_stmt_close($stmt);
                     header("Location: login.php");
+                    exit;
                 } else {
                     echo "Error: " . $conn->error;
                 }
@@ -72,7 +45,36 @@
     }
     mysqli_close($conn);
     
-    ?>
-    
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="form.css">
+    <title>Register Page</title>
+</head>
+<body>
+    <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post">
+        <h1>Register</h1>
+
+        <span>Name</span><input type="text" id="name" name="name" placeholder="Name">
+        <br>
+        <span>Username</span><input type="text" id="username" name="username" placeholder="Username">
+        <br>
+        <span>Password</span><input type="password" name="password" id="password" placeholder="Password">
+        <br>
+        <input type="submit" name="submit" id="submit" value="Register">
+    </form>
+    <span>Already have an account? return</span><button onclick="GoToLoginPage()">Log in</button>
+
+    <script>
+            function GoToLoginPage(){
+            var a = 'login.php';
+            window.location.href = a;
+    }
+    </script>
 </body>
 </html>
