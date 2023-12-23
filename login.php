@@ -16,7 +16,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
     
         if (mysqli_num_rows($result) == 1) {
             $user = mysqli_fetch_assoc($result);
-    
+
+            $recaptcha_secret = "6LehVDopAAAAAOBD1HYPqFae03ELKMKXl4QGz9uG";
+            $recaptcha_response = $_POST['g-recaptcha-response'];
+
+            $recaptcha_url = "https://www.google.com/recaptcha/api/siteverify";
+            $recaptcha_data = [
+                'secret' => $recaptcha_secret,
+                'response' => $recaptcha_response,
+            ];
+
+            $recaptcha_options = [
+                'http' => [
+                    'method' => 'POST',
+                    'content' => http_build_query($recaptcha_data),
+                ],
+            ];
+
+            $recaptcha_context = stream_context_create($recaptcha_options);
+            $recaptcha_result = file_get_contents($recaptcha_url, false, $recaptcha_context);
+            $recaptcha_data = json_decode($recaptcha_result);
+
+            if (!$recaptcha_data->success) {
+                // reCAPTCHA verification failed
+                echo '<script>alert("reCAPTCHA verification failed. Please try again.");</script>';
+                exit;
+            }
+
             if (password_verify($password, $user['password'])) {
                 mysqli_stmt_close($stmt);
                 header("Location: success.html");
@@ -55,6 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
         <br>
         <span>Password</span><input type="password" name="password" id="password" placeholder="Password">
         <br>
+        <div class="g-recaptcha" data-sitekey="6LehVDopAAAAAJOgZPG_3FMu06VSuHUmifr8H3Lk"></div>
+        <br>
         <input type="submit" name="submit" id="submit" value="Log in">
     </form>
     <span>Dont have an account? Click to</span><button onclick="GoToPage()">register</button>
@@ -64,5 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
             window.location.href = a;
     }
     </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
