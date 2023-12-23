@@ -33,7 +33,7 @@ form span{
     left:-95px;
 }
 
-input {
+form input {
     color: white;
     width: 100%;
     padding: 10px;
@@ -43,16 +43,30 @@ input {
     background-color: #34193f;
     border: 2px solid transparent;
 }
-
 .g-recaptcha {
-    margin: 15px 0; 
-    text-align: center;
+    position: relative;
+    width: 100%;
+    background: #f9f9f9;
+    overflow: hidden;
 }
 
-.grecaptcha-badge {
-    visibility:visible;
+.g-recaptcha > * {
+    float: right;
+    right: 0;
+    margin: -2px -2px -10px;/*remove borders*/ 
 }
 
+.g-recaptcha::after{
+    display: block;
+    content: "";
+    position: absolute;
+    left:0;
+    right:150px;
+    top: 0;
+    bottom:0;
+    background-color: #f9f9f9;
+    clear: both;
+}
 input:focus{
     border:0.3px solid white;
 }
