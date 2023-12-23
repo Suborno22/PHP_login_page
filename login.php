@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="14">
+    <meta http-equiv="refresh" content="3">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="form.css">
     <title>Login Page</title>
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
         <br>
         <span>Password</span><input type="password" name="password" id="password" placeholder="Password">
         <br>
-        <div class="g-recaptcha" data-sitekey="6LehVDopAAAAAJOgZPG_3FMu06VSuHUmifr8H3Lk"></div>
+        <div class="g-recaptcha" data-sitekey="6LehVDopAAAAAJOgZPG_3FMu06VSuHUmifr8H3Lk" style="transform:scale(0.8);transform-origin:0 0"></div>
         <br>
         <input type="submit" name="submit" id="submit" value="Log in">
     </form>
