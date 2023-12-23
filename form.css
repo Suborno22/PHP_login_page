@@ -44,6 +44,15 @@ input {
     border: 2px solid transparent;
 }
 
+.g-recaptcha {
+    margin: 15px 0; 
+    text-align: center;
+}
+
+.grecaptcha-badge {
+    visibility:visible;
+}
+
 input:focus{
     border:0.3px solid white;
 }
